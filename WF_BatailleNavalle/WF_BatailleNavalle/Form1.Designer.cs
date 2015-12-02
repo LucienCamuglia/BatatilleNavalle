@@ -39,6 +39,7 @@
             this.Text = "Bataille navalle";
             this.ResumeLayout(false);
 
+
         }
 
         #endregion
