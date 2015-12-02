@@ -39,8 +39,8 @@
             this.Text = "Bataille navalle";
             this.Load += new System.EventHandler(this.FrmBatailleNavalle_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.FrmBatailleNavalle_Paint);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FrmBatailleNavalle_MouseMove);
             this.ResumeLayout(false);
-
 
         }
 

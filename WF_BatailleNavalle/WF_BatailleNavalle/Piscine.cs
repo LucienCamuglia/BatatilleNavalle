@@ -16,7 +16,7 @@ namespace WF_BatailleNavalle
         #region Champs
         private int _width;
         private int _height;
-        private List<Rectangle> _listRects;
+        private List<Carre> _listRects;
         private Point _location;
         #endregion
 
@@ -42,7 +42,7 @@ namespace WF_BatailleNavalle
         /// <summary>
         /// Liste des carrés constituant la grille
         /// </summary>
-        private List<Rectangle> ListRects
+        private List<Carre> ListRects
         {
             get { return _listRects; }
             set { _listRects = value; }
@@ -67,29 +67,60 @@ namespace WF_BatailleNavalle
             this.Width = 10;
             this.Height = 10;
             this.Location = new Point(0, 0);
-            this.ListRects = new List<Rectangle>();
+            this.ListRects = new List<Carre>();
+            //this.InitialisationGrille();
+        }
+
+        /// <summary>
+        /// Instancie une nouvelle piscine de taille 10x10 à une position donné
+        /// </summary>
+        /// <param name="posX">Position X</param>
+        /// <param name="posY">Position Y</param>
+        public Piscine(int posX, int posY)
+            : this()
+        {
+            this.Location = new Point(posX, posY);
             this.InitialisationGrille();
         }
         #endregion
 
         #region Methodes
+        /// <summary>
+        /// Initialise chaque carré de la grille
+        /// </summary>
         private void InitialisationGrille()
         {
             for (int i = 0; i < this.Width; ++i)
             {
                 for (int j = 0; j < this.Height; ++j)
                 {
-                    this.ListRects.Add(new Rectangle(this.Location.X + 50 * i, this.Location.Y + 50 * j, 50, 50));
+                    this.ListRects.Add(new Carre(this.Location.X + 50 * j, this.Location.Y + 50 * i, 50));
                 }
             }
+
+            this.ListRects[2].Color = Color.Blue;
         }
 
-        public void Draw(PaintEventArgs pe)
+        /// <summary>
+        /// Dessine la piscine
+        /// </summary>
+        /// <param name="pe">Element graphics</param>
+        public void Dessine(PaintEventArgs pe)
         {
             Pen pen = new Pen(Color.Black);
+            SolidBrush brush = new SolidBrush(Color.White);
+            
+            foreach (Carre rec in this.ListRects)
+            {
+                rec.Dessine(pe);
+            }
 
-            foreach(Rectangle rec in this.ListRects)
-                pe.Graphics.DrawRectangle(pen, rec);
+        }
+
+        public void CarreVise(int x, int y)
+        {
+            foreach (Carre rec in this.ListRects)
+                rec.Dessu(x, y);
         }
         #endregion
     }

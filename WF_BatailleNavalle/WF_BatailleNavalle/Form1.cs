@@ -11,26 +11,38 @@ namespace WF_BatailleNavalle
     public partial class FrmBatailleNavalle : Form
     {
         private Piscine piscine;
+        private Timer temps;
 
         public FrmBatailleNavalle()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
         }
 
         private void FrmBatailleNavalle_Load(object sender, System.EventArgs e)
         {
-            piscine = new Piscine();
+            piscine = new Piscine(10, 10);
+            
+            temps = new Timer();
+            temps.Enabled = true;
+            temps.Interval = 1;
+            temps.Tick +=temps_tick;
+        }
+
+        private void temps_tick(object sender, System.EventArgs e)
+        {
             Refresh();
         }
 
         private void FrmBatailleNavalle_Paint(object sender, PaintEventArgs e)
         {
-            piscine.Draw(e);
+            piscine.Dessine(e);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void FrmBatailleNavalle_MouseMove(object sender, MouseEventArgs e)
         {
-          
+            piscine.CarreVise(e.X, e.Y);
         }
+
     }
 }
