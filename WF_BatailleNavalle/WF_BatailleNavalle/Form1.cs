@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Auteurs    : Alan Devaud & Lucien Camuglia
+ * Desription : Jeu de la bataille navalle
+ * Date       : 02.12.2015
+ * Version    : 1.0
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 using System.Windows.Forms;
 
 namespace WF_BatailleNavalle
 {
-    public partial class Form1 : Form
+    public partial class FrmBatailleNavalle : Form
     {
-        public Form1()
+        public FrmBatailleNavalle()
         {
             InitializeComponent();
         }

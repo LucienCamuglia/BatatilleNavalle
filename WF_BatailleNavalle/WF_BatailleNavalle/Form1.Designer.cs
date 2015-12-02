@@ -1,6 +1,6 @@
 ﻿namespace WF_BatailleNavalle
 {
-    partial class Form1
+    partial class FrmBatailleNavalle
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -28,9 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // FrmBatailleNavalle
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(737, 533);
+            this.Name = "FrmBatailleNavalle";
+            this.Text = "Bataille navalle";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
