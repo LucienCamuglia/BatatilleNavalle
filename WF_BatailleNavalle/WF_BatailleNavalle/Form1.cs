@@ -10,9 +10,22 @@ namespace WF_BatailleNavalle
 {
     public partial class FrmBatailleNavalle : Form
     {
+        private Piscine piscine;
+
         public FrmBatailleNavalle()
         {
             InitializeComponent();
+        }
+
+        private void FrmBatailleNavalle_Load(object sender, System.EventArgs e)
+        {
+            piscine = new Piscine();
+            Refresh();
+        }
+
+        private void FrmBatailleNavalle_Paint(object sender, PaintEventArgs e)
+        {
+            piscine.Draw(e);
         }
 
         private void Form1_Load(object sender, EventArgs e)

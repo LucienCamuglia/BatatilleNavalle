@@ -37,6 +37,8 @@
             this.ClientSize = new System.Drawing.Size(737, 533);
             this.Name = "FrmBatailleNavalle";
             this.Text = "Bataille navalle";
+            this.Load += new System.EventHandler(this.FrmBatailleNavalle_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.FrmBatailleNavalle_Paint);
             this.ResumeLayout(false);
 
 
