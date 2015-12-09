@@ -7,6 +7,7 @@
  *                - AD 08.12.2015 : Ajout de la croix
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -19,7 +20,7 @@ namespace WF_BatailleNavalle
         private Color _color;
         private Color _bordure;
         private Croix _croix;
-        private const int TAILLE_CROIX = 30;
+        private const double COEF_PROPORTION = 1.75d;
         #endregion
 
         #region Propriétés
@@ -146,7 +147,8 @@ namespace WF_BatailleNavalle
         /// </summary>
         public void AjouterCroix()
         {
-            this.Croix = new Croix(this.Rectangle.X + this.Rectangle.Width / 2 - TAILLE_CROIX / 2, this.Rectangle.Y + this.Rectangle.Height / 2 - TAILLE_CROIX / 2, TAILLE_CROIX);
+            int tailleCroix = Convert.ToInt32(this.Rectangle.Width / COEF_PROPORTION); // Calcul la taille de la croix selon un coeficient
+            this.Croix = new Croix(this.Rectangle.X + this.Rectangle.Width / 2 - tailleCroix / 2, this.Rectangle.Y + this.Rectangle.Height / 2 - tailleCroix / 2, tailleCroix);
         }
         #endregion
     }

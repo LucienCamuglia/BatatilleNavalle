@@ -22,7 +22,7 @@ namespace WF_BatailleNavalle
         private int _height;
         private List<Carre> _listRects;
         private Point _location;
-        private const int TAILLE_CASE = 50;
+        private const int TAILLE_CASE = 35;
         #endregion
 
         #region Proriétés
@@ -73,7 +73,6 @@ namespace WF_BatailleNavalle
             this.Height = 10;
             this.Location = new Point(0, 0);
             this.ListRects = new List<Carre>();
-            //this.InitialisationGrille();
         }
 
         /// <summary>
@@ -112,7 +111,7 @@ namespace WF_BatailleNavalle
         {
             Pen pen = new Pen(Color.Black);
             SolidBrush brush = new SolidBrush(Color.White);
-            
+
             foreach (Carre rec in this.ListRects)
             {
                 rec.Dessine(pe);
@@ -145,7 +144,7 @@ namespace WF_BatailleNavalle
                     rec.AjouterCroix();
                 }
             }
-                
+
         }
         #endregion
     }
