@@ -146,7 +146,7 @@ namespace WF_BatailleNavalle
         /// </summary>
         public void AjouterCroix()
         {
-            this.Croix = new Croix(this.Rectangle.X + 10, this.Rectangle.Y + 10, TAILLE_CROIX);
+            this.Croix = new Croix(this.Rectangle.X + this.Rectangle.Width / 2 - TAILLE_CROIX / 2, this.Rectangle.Y + this.Rectangle.Height / 2 - TAILLE_CROIX / 2, TAILLE_CROIX);
         }
         #endregion
     }
