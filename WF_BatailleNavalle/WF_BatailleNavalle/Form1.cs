@@ -1,4 +1,6 @@
-﻿/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+﻿using System;
+using System.Collections.Generic;
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Auteurs    : Alan Devaud & Lucien Camuglia
  * Desription : Jeu de la bataille navalle
  * Date       : 02.12.2015
@@ -18,6 +20,20 @@ namespace WF_BatailleNavalle
         {
             InitializeComponent();
             this.DoubleBuffered = true;
+            try
+            {
+                GestionFichiers.CreeFichier();
+                MessageBox.Show("");
+                List<string> joueurs  = new List<string>();
+                joueurs = GestionFichiers.LireJoueurs();
+                foreach(string joueur in joueurs){
+                MessageBox.Show(joueur);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         private void FrmBatailleNavalle_Load(object sender, System.EventArgs e)
