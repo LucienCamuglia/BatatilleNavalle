@@ -6,6 +6,7 @@
  * Modification :
  *                - AD 08.12.2015 : Modification de la taille d'un carré pour avoir un espacement
  *                                  correction du bug de l'affichage quand la souris passe sur un carré.
+ *                                  Ajout de l'intéraction avec les cases (Affichage d'une croix).
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace WF_BatailleNavalle
         private int _height;
         private List<Carre> _listRects;
         private Point _location;
+        private const int TAILLE_CASE = 50;
         #endregion
 
         #region Proriétés
@@ -97,11 +99,9 @@ namespace WF_BatailleNavalle
             {
                 for (int j = 0; j < this.Height; ++j)
                 {
-                    this.ListRects.Add(new Carre(this.Location.X  + 50 * j, this.Location.Y + 50 * i, 49));
+                    this.ListRects.Add(new Carre(this.Location.X + TAILLE_CASE * j, this.Location.Y + TAILLE_CASE * i, TAILLE_CASE - 1));
                 }
             }
-
-            this.ListRects[2].Color = Color.Blue;
         }
 
         /// <summary>
@@ -129,6 +129,23 @@ namespace WF_BatailleNavalle
         {
             foreach (Carre rec in this.ListRects)
                 rec.Dessu(x, y);
+        }
+
+        /// <summary>
+        /// Verifie si un carré est touché
+        /// </summary>
+        /// <param name="x">Position x de la souris</param>
+        /// <param name="y">Position y de la souris</param>
+        public void CarreTouche(int x, int y)
+        {
+            foreach (Carre rec in this.ListRects)
+            {
+                if (rec.Toucher(x, y))
+                {
+                    rec.AjouterCroix();
+                }
+            }
+                
         }
         #endregion
     }

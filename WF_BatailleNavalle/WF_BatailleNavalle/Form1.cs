@@ -44,5 +44,10 @@ namespace WF_BatailleNavalle
             piscine.CarreVise(e.X, e.Y);
         }
 
+        private void FrmBatailleNavalle_MouseUp(object sender, MouseEventArgs e)
+        {
+            piscine.CarreTouche(e.X, e.Y);
+        }
+
     }
 }

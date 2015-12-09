@@ -1,8 +1,10 @@
 ﻿/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Auteurs    : Alan Devaud
- * Desription : Class qui gère un carré
- * Date       : 02.12.2015
- * Version    : 1.0
+ * Auteurs      : Alan Devaud
+ * Desription   : Class qui gère un carré
+ * Date         : 02.12.2015
+ * Version      : 1.1
+ * Modification :
+ *                - AD 08.12.2015 : Ajout de la croix
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System.Drawing;
@@ -16,6 +18,8 @@ namespace WF_BatailleNavalle
         private Rectangle _rectangle;
         private Color _color;
         private Color _bordure;
+        private Croix _croix;
+        private const int TAILLE_CROIX = 30;
         #endregion
 
         #region Propriétés
@@ -45,6 +49,15 @@ namespace WF_BatailleNavalle
             get { return _bordure; }
             set { _bordure = value; }
         }
+
+        /// <summary>
+        /// Obtient ou définit la croix
+        /// </summary>
+        public Croix Croix
+        {
+            get { return _croix; }
+            set { _croix = value; }
+        }
         #endregion
 
         #region Constructeur
@@ -59,6 +72,7 @@ namespace WF_BatailleNavalle
             this.Rectangle = new Rectangle(x, y, taille, taille);
             this.Color = Color.White;
             this.Bordure = Color.Black;
+            this.Croix = null;
         }
 
         /// <summary>
@@ -87,6 +101,11 @@ namespace WF_BatailleNavalle
 
             pe.Graphics.FillRectangle(brush, this.Rectangle);
             pe.Graphics.DrawRectangle(pen, this.Rectangle);
+
+            if (this.Croix != null)
+            {
+                Croix.Dessine(pe);
+            }
         }
 
         /// <summary>
@@ -104,6 +123,30 @@ namespace WF_BatailleNavalle
             {
                 this.Bordure = Color.Black;
             }
+        }
+
+        /// <summary>
+        /// Vérifie si le carré est touché et qu'il n'y a pas de croix
+        /// </summary>
+        /// <param name="x">Position x de la souris</param>
+        /// <param name="y">Position y de la souris</param>
+        /// <returns></returns>
+        public bool Toucher(int x, int y)
+        {
+            if ((x >= this.Rectangle.X) && (x <= this.Rectangle.X + this.Rectangle.Width) && (y >= this.Rectangle.Y) && (y <= this.Rectangle.Y + this.Rectangle.Height) && (this.Croix == null))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Ajout une croix sur le carré
+        /// </summary>
+        public void AjouterCroix()
+        {
+            this.Croix = new Croix(this.Rectangle.X + 10, this.Rectangle.Y + 10, TAILLE_CROIX);
         }
         #endregion
     }
