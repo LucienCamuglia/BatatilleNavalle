@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bateau.cs" />
     <Compile Include="Carre.cs" />
     <Compile Include="Croix.cs" />
     <Compile Include="Form1.cs">

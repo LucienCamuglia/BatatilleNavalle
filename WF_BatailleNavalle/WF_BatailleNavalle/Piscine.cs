@@ -116,7 +116,6 @@ namespace WF_BatailleNavalle
             {
                 rec.Dessine(pe);
             }
-
         }
 
         /// <summary>
