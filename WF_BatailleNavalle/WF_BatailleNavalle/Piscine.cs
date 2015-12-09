@@ -1,9 +1,12 @@
-﻿/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Auteurs    : Alan Devaud
- * Desription : Class de gestion des piscines (Affichage)
- * Date       : 02.12.2015
- * Version    : 1.0
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+﻿/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Auteurs      : Alan Devaud
+ * Desription   : Class de gestion des piscines (Affichage)
+ * Date         : 02.12.2015
+ * Version      : 1.1
+ * Modification :
+ *                - AD 08.12.2015 : Modification de la taille d'un carré pour avoir un espacement
+ *                                  correction du bug de l'affichage quand la souris passe sur un carré.
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System.Collections.Generic;
 using System.Drawing;
@@ -94,7 +97,7 @@ namespace WF_BatailleNavalle
             {
                 for (int j = 0; j < this.Height; ++j)
                 {
-                    this.ListRects.Add(new Carre(this.Location.X + 50 * j, this.Location.Y + 50 * i, 50));
+                    this.ListRects.Add(new Carre(this.Location.X  + 50 * j, this.Location.Y + 50 * i, 49));
                 }
             }
 
@@ -117,6 +120,11 @@ namespace WF_BatailleNavalle
 
         }
 
+        /// <summary>
+        /// Verifie si la souris est sur un carré
+        /// </summary>
+        /// <param name="x">Position x de la souris</param>
+        /// <param name="y">Position y de la souris</param>
         public void CarreVise(int x, int y)
         {
             foreach (Carre rec in this.ListRects)
