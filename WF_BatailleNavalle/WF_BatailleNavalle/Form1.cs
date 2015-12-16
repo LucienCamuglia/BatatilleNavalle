@@ -22,6 +22,7 @@ namespace WF_BatailleNavalle
         {
             InitializeComponent();
             this.DoubleBuffered = true;
+            GestionFichiers.CreeFichier();
             PlateauP1 = GestionFichiers.LirePlateau(1);
             PlateauP2 = GestionFichiers.LirePlateau(2);
 
