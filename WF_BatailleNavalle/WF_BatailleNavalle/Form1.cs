@@ -12,7 +12,8 @@ namespace WF_BatailleNavalle
 {
     public partial class FrmBatailleNavalle : Form
     {
-        private Piscine piscine;
+        //private Piscine piscine;
+        private List<Piscine> listPiscine;
         private Bateau test;
         private Timer temps;
         private List<string> PlateauP1= new List<string>(), PlateauP2 = new List<string>();
@@ -28,7 +29,11 @@ namespace WF_BatailleNavalle
 
         private void FrmBatailleNavalle_Load(object sender, System.EventArgs e)
         {
-            piscine = new Piscine(20, 20);
+            this.listPiscine = new List<Piscine>();
+
+            this.listPiscine.Add(new Piscine(20, 20));
+            this.listPiscine.Add(new Piscine(500, 20));
+
             test = new Bateau(400, 10);
             
             temps = new Timer();
@@ -44,18 +49,28 @@ namespace WF_BatailleNavalle
 
         private void FrmBatailleNavalle_Paint(object sender, PaintEventArgs e)
         {
-            piscine.Dessine(e);
+            foreach (Piscine p in this.listPiscine)
+            {
+                p.Dessine(e);
+            }
+            
             test.Dessine(e);
         }
 
         private void FrmBatailleNavalle_MouseMove(object sender, MouseEventArgs e)
         {
-            piscine.CarreVise(e.X, e.Y);     
+            foreach (Piscine p in this.listPiscine)
+            {
+                p.CarreVise(e.X, e.Y);
+            }    
         }
 
         private void FrmBatailleNavalle_MouseUp(object sender, MouseEventArgs e)
         {
-            piscine.CarreTouche(e.X, e.Y);
+            foreach (Piscine p in this.listPiscine)
+            {
+                p.CarreTouche(e.X, e.Y);
+            }
         }
 
     }
