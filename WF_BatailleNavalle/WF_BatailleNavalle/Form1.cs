@@ -15,25 +15,15 @@ namespace WF_BatailleNavalle
         private Piscine piscine;
         private Bateau test;
         private Timer temps;
+        private List<string> PlateauP1= new List<string>(), PlateauP2 = new List<string>();
 
         public FrmBatailleNavalle()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
-            try
-            {
-                GestionFichiers.CreeFichier();
-                MessageBox.Show("");
-                List<string> joueurs  = new List<string>();
-                joueurs = GestionFichiers.LireJoueurs();
-                foreach(string joueur in joueurs){
-                MessageBox.Show(joueur);               
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-            }
+            PlateauP1 = GestionFichiers.LirePlateau(1);
+            PlateauP2 = GestionFichiers.LirePlateau(2);
+
         }
 
         private void FrmBatailleNavalle_Load(object sender, System.EventArgs e)
