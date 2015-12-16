@@ -21,6 +21,8 @@ namespace WF_BatailleNavalle
     {
         #region champs
         private const string REGEXJOUEURS = @"P\d;(\w+)";
+        private const string REGEXPLATEAU = @"(\d);";
+
         private const string LOCK = ".lock";
         private const string EXTENSION = ".bnav";
         private const string CHEMIN = "C:\\BnShare\\";
@@ -68,7 +70,33 @@ namespace WF_BatailleNavalle
             return true;
 
         }
-
+        static private string chargeInfoParTag(string tag)
+        {
+            XmlDocument document = new XmlDocument();
+            FileStream stream;
+            XmlElement root;
+            XmlNodeList XmlListTag;
+            IEnumerator ienum;
+            string texte="";
+            //ouvre le fichier XML
+            stream = File.Open(CHEMIN + NomFichier + EXTENSION, FileMode.Open);
+            //charge le fichier XML
+            document.Load(stream);
+            //Défini le root du fichier XML
+            root = document.DocumentElement;            
+            //Défini les élèments a récupèrer
+            XmlListTag = root.GetElementsByTagName(tag);
+            //Récupère toutes les valeurs
+            ienum = XmlListTag.GetEnumerator();
+            //extrai chaque valeurs aux format texte
+            while (ienum.MoveNext())
+            {
+                XmlNode node = (XmlNode)ienum.Current;
+                texte += node.InnerText;
+            }
+            stream.Close();
+            return texte;
+        }
         /// <summary>
         /// Lecture des joueurs depuis le fichier XML
         /// </summary>
@@ -77,29 +105,7 @@ namespace WF_BatailleNavalle
         {
             List<String> joueurs = new List<string>();
             string JoueurTexte = "";
-            XmlDocument document = new XmlDocument();
-            FileStream stream;
-            XmlElement root;
-            XmlNodeList XmlJoueurs;
-            IEnumerator ienum;
-
-            //ouvre le fichier XML
-            stream = File.Open(CHEMIN + NomFichier + EXTENSION, FileMode.Open);
-            //charge le fichier XML
-            document.Load(stream);
-            //Défini le root du fichier XML
-            root = document.DocumentElement;
-            //Défini les élèments a récupèrer
-            XmlJoueurs = root.GetElementsByTagName("JOUEURS");
-            //Récupère toutes les valeurs
-            ienum = XmlJoueurs.GetEnumerator();
-
-            //extrai chaque valeurs aux format texte
-            while (ienum.MoveNext())
-            {
-                XmlNode joueur = (XmlNode)ienum.Current;
-                JoueurTexte += joueur.InnerText;
-            }
+            JoueurTexte = chargeInfoParTag("JOUEURS");           
 
             //défini l'expression régulière
             Regex r = new Regex(REGEXJOUEURS);
@@ -112,43 +118,21 @@ namespace WF_BatailleNavalle
             return joueurs;
         }
 
-        static public List<string> LirePlateaux()
+        static public List<string> LirePlateau(int id)
         {
-            List<String> joueurs = new List<string>();
-            string JoueurTexte = "";
-            XmlDocument document = new XmlDocument();
-            FileStream stream;
-            XmlElement root;
-            XmlNodeList XmlJoueurs;
-            IEnumerator ienum;
-
-            //ouvre le fichier XML
-            stream = File.Open(CHEMIN + NomFichier + EXTENSION, FileMode.Open);
-            //charge le fichier XML
-            document.Load(stream);
-            //Défini le root du fichier XML
-            root = document.DocumentElement;
-            //Défini les élèments a récupèrer
-            XmlJoueurs = root.GetElementsByTagName("JOUEURS");
-            //Récupère toutes les valeurs
-            ienum = XmlJoueurs.GetEnumerator();
-
-            //extrai chaque valeurs aux format texte
-            while (ienum.MoveNext())
-            {
-                XmlNode joueur = (XmlNode)ienum.Current;
-                JoueurTexte += joueur.InnerText;
-            }
+            List<string> plateau = new List<string>();
+            string plateauTexte = "";
+            plateauTexte = chargeInfoParTag("PLATEAU-P" + id.ToString());
 
             //défini l'expression régulière
-            Regex r = new Regex(REGEXJOUEURS);
+            Regex r = new Regex(REGEXPLATEAU);
             //extrait les valeurs selon l'expréssion regulière
-            foreach (Match m in r.Matches(JoueurTexte))
+            foreach (Match m in r.Matches(plateauTexte))
             {
-                joueurs.Add((m.Groups[1]).ToString());
+                plateau.Add((m.Groups[1]).ToString());
             }
 
-            return joueurs;
+            return plateau;
         }
 
 

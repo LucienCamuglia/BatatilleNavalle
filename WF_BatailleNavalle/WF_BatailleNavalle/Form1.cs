@@ -27,7 +27,7 @@ namespace WF_BatailleNavalle
                 List<string> joueurs  = new List<string>();
                 joueurs = GestionFichiers.LireJoueurs();
                 foreach(string joueur in joueurs){
-                MessageBox.Show(joueur);
+                MessageBox.Show(joueur);               
                 }
             }
             catch (Exception e)
