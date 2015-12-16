@@ -2,11 +2,14 @@
  * Auteurs      : Alan Devaud
  * Desription   : Class de gestion des piscines (Affichage)
  * Date         : 02.12.2015
- * Version      : 1.1
+ * Version      : 1.2
  * Modification :
  *                - AD 08.12.2015 : Modification de la taille d'un carré pour avoir un espacement
  *                                  correction du bug de l'affichage quand la souris passe sur un carré.
  *                                  Ajout de l'intéraction avec les cases (Affichage d'une croix).
+ *                - AD 16.12.2015 : Modification des noms de variable width et height en nbCaseLargeur et 
+ *                                  nbCaseHauteur.    
+ *                                  Ajout de la fonction pour calculer la taille de la grille en pixel
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System.Collections.Generic;
@@ -18,39 +21,59 @@ namespace WF_BatailleNavalle
     class Piscine
     {
         #region Champs
-        private int _width;
-        private int _height;
-        private List<Carre> _listRects;
+        private int _nbCaseLargeur;
+        private int _nbCaseHauteur;
+        private int _largeur;
+        private int _hauteur;        
+        private List<Case> _listCases;
         private Point _location;
         private const int TAILLE_CASE = 35;
         #endregion
 
         #region Proriétés
         /// <summary>
-        /// Hauteur de la grille (nombre de carré)
+        /// Largeur de la grille
         /// </summary>
-        private int Height
+        public int Largeur
         {
-            get { return _height; }
-            set { _height = value; }
+            get { return _largeur; }
+            set { _largeur = value; }
         }
 
         /// <summary>
-        /// Largeur de la grille (nombre de carré)
+        /// Hauteur de la grille
         /// </summary>
-        private int Width
+        public int Hauteur
         {
-            get { return _width; }
-            set { _width = value; }
+            get { return _hauteur; }
+            set { _hauteur = value; }
+        }
+
+        /// <summary>
+        /// Hauteur de la grille (nombre de case)
+        /// </summary>
+        private int NbCaseHauteur
+        {
+            get { return _nbCaseHauteur; }
+            set { _nbCaseHauteur = value; }
+        }
+
+        /// <summary>
+        /// Largeur de la grille (nombre de case)
+        /// </summary>
+        private int NbCaseLargeur
+        {
+            get { return _nbCaseLargeur; }
+            set { _nbCaseLargeur = value; }
         }
 
         /// <summary>
         /// Liste des carrés constituant la grille
         /// </summary>
-        private List<Carre> ListRects
+        private List<Case> ListCases
         {
-            get { return _listRects; }
-            set { _listRects = value; }
+            get { return _listCases; }
+            set { _listCases = value; }
         }
 
         /// <summary>
@@ -69,10 +92,10 @@ namespace WF_BatailleNavalle
         /// </summary>
         public Piscine()
         {
-            this.Width = 10;
-            this.Height = 10;
+            this.NbCaseLargeur = 10;
+            this.NbCaseHauteur = 10;
             this.Location = new Point(0, 0);
-            this.ListRects = new List<Carre>();
+            this.ListCases = new List<Case>();
         }
 
         /// <summary>
@@ -85,20 +108,29 @@ namespace WF_BatailleNavalle
         {
             this.Location = new Point(posX, posY);
             this.InitialisationGrille();
+            this.InitialisationTaille();
         }
         #endregion
 
         #region Methodes
         /// <summary>
-        /// Initialise chaque carré de la grille
+        /// Calcul la taille en pixel par rapport au nombre de carré et à leur taille
+        /// </summary>
+        private void InitialisationTaille()
+        {
+            this.Largeur = this.NbCaseLargeur * TAILLE_CASE;
+            this.Hauteur = this.NbCaseHauteur * TAILLE_CASE;
+        }
+        /// <summary>
+        /// Initialise chaque case de la grille
         /// </summary>
         private void InitialisationGrille()
         {
-            for (int i = 0; i < this.Width; ++i)
+            for (int i = 0; i < this.NbCaseLargeur; ++i)
             {
-                for (int j = 0; j < this.Height; ++j)
+                for (int j = 0; j < this.NbCaseHauteur; ++j)
                 {
-                    this.ListRects.Add(new Carre(this.Location.X + TAILLE_CASE * j, this.Location.Y + TAILLE_CASE * i, TAILLE_CASE - 1));
+                    this.ListCases.Add(new Case(this.Location.X + TAILLE_CASE * j, this.Location.Y + TAILLE_CASE * i, TAILLE_CASE - 1));
                 }
             }
         }
@@ -112,7 +144,7 @@ namespace WF_BatailleNavalle
             Pen pen = new Pen(Color.Black);
             SolidBrush brush = new SolidBrush(Color.White);
 
-            foreach (Carre rec in this.ListRects)
+            foreach (Case rec in this.ListCases)
             {
                 rec.Dessine(pe);
             }
@@ -125,7 +157,7 @@ namespace WF_BatailleNavalle
         /// <param name="y">Position y de la souris</param>
         public void CarreVise(int x, int y)
         {
-            foreach (Carre rec in this.ListRects)
+            foreach (Case rec in this.ListCases)
                 rec.Dessu(x, y);
         }
 
@@ -136,7 +168,7 @@ namespace WF_BatailleNavalle
         /// <param name="y">Position y de la souris</param>
         public void CarreTouche(int x, int y)
         {
-            foreach (Carre rec in this.ListRects)
+            foreach (Case rec in this.ListCases)
             {
                 if (rec.Toucher(x, y))
                 {

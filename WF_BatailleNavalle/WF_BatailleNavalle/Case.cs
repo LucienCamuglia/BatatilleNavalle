@@ -1,10 +1,11 @@
 ﻿/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * Auteurs      : Alan Devaud
- * Desription   : Class qui gère un carré
+ * Desription   : Class qui gère un case
  * Date         : 02.12.2015
- * Version      : 1.1
+ * Version      : 1.2
  * Modification :
  *                - AD 08.12.2015 : Ajout de la croix
+ *                - AD 16.12.2015 : Modification du nom de la class en Case.
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System;
@@ -13,14 +14,14 @@ using System.Windows.Forms;
 
 namespace WF_BatailleNavalle
 {
-    class Carre
+    class Case
     {
         #region Champs
         private Rectangle _rectangle;
         private Color _color;
         private Color _bordure;
         private Croix _croix;
-        private const double COEF_PROPORTION = 1.75d;
+        private const double COEF_PROPORTION = 1.75d; // Coeficient de proportion pour calculer une bonne taille pour la croix
         #endregion
 
         #region Propriétés
@@ -68,7 +69,7 @@ namespace WF_BatailleNavalle
         /// <param name="x">Position X</param>
         /// <param name="y">Position Y</param>
         /// <param name="taille">Taille</param>
-        public Carre(int x, int y, int taille)
+        public Case(int x, int y, int taille)
         {
             this.Rectangle = new Rectangle(x, y, taille, taille);
             this.Color = Color.White;
@@ -83,7 +84,7 @@ namespace WF_BatailleNavalle
         /// <param name="y">Position Y</param>
         /// <param name="taille">Taille</param>
         /// <param name="color">Couleur de fond</param>
-        public Carre(int x, int y, int taille, Color color)
+        public Case(int x, int y, int taille, Color color)
             : this(x, y, taille)
         {
             this.Color = color;

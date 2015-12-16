@@ -36,6 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(737, 533);
             this.Name = "FrmBatailleNavalle";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Bataille navalle";
             this.Load += new System.EventHandler(this.FrmBatailleNavalle_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.FrmBatailleNavalle_Paint);
@@ -46,6 +47,7 @@
         }
 
         #endregion
+
     }
 }
 

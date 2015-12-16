@@ -16,7 +16,7 @@ namespace WF_BatailleNavalle
     {
         #region Champs
         private Point _location;
-        private List<Carre> _formBateau;
+        private List<Case> _formBateau;
         private bool _selectionner;
         private const int TAILLE_CARRE = 35;
         #endregion
@@ -34,7 +34,7 @@ namespace WF_BatailleNavalle
         /// <summary>
         /// Obtient ou définit la form du bateau
         /// </summary>
-        public List<Carre> FormBateau
+        public List<Case> FormBateau
         {
             get { return _formBateau; }
             set { _formBateau = value; }
@@ -54,7 +54,7 @@ namespace WF_BatailleNavalle
         public Bateau(int x, int y)
         {
             this.Location = new Point(x, y);
-            this.FormBateau = new List<Carre>();
+            this.FormBateau = new List<Case>();
             this.InitialiseForm();
         }
         #endregion
@@ -66,8 +66,8 @@ namespace WF_BatailleNavalle
         /// </summary>
         private void InitialiseForm()
         {
-            this.FormBateau.Add(new Carre(this.Location.X, this.Location.Y, TAILLE_CARRE, Color.Orange));
-            this.FormBateau.Add(new Carre(this.Location.X + TAILLE_CARRE, this.Location.Y, TAILLE_CARRE, Color.Orange));
+            this.FormBateau.Add(new Case(this.Location.X, this.Location.Y, TAILLE_CARRE, Color.Orange));
+            this.FormBateau.Add(new Case(this.Location.X + TAILLE_CARRE, this.Location.Y, TAILLE_CARRE, Color.Orange));
         }
 
         /// <summary>
@@ -76,13 +76,13 @@ namespace WF_BatailleNavalle
         /// <param name="pe"></param>
         public void Dessine(PaintEventArgs pe)
         {
-            foreach (Carre rec in this.FormBateau)
+            foreach (Case rec in this.FormBateau)
                 rec.Dessine(pe);
         }
 
         public void CliquerBateau(int x, int y)
         {
-            foreach(Carre rec in this.FormBateau)
+            foreach(Case rec in this.FormBateau)
             {
                 if ((x >= rec.Rectangle.X) && (x <= rec.Rectangle.X + rec.Rectangle.Width) && (y >= rec.Rectangle.Y) && (y <= rec.Rectangle.Y + rec.Rectangle.Height))
                 {
