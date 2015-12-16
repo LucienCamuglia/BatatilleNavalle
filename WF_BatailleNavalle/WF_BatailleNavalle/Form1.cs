@@ -38,7 +38,7 @@ namespace WF_BatailleNavalle
 
         private void FrmBatailleNavalle_Load(object sender, System.EventArgs e)
         {
-            piscine = new Piscine(10, 10);
+            piscine = new Piscine(20, 20);
             test = new Bateau(400, 10);
             
             temps = new Timer();

@@ -9,7 +9,8 @@
  *                                  Ajout de l'intéraction avec les cases (Affichage d'une croix).
  *                - AD 16.12.2015 : Modification des noms de variable width et height en nbCaseLargeur et 
  *                                  nbCaseHauteur.    
- *                                  Ajout de la fonction pour calculer la taille de la grille en pixel
+ *                                  Ajout de la fonction pour calculer la taille de la grille en pixel.
+ *                                  Ajout des informations de la graille.
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 using System.Collections.Generic;
@@ -24,13 +25,24 @@ namespace WF_BatailleNavalle
         private int _nbCaseLargeur;
         private int _nbCaseHauteur;
         private int _largeur;
-        private int _hauteur;        
+        private int _hauteur;
         private List<Case> _listCases;
         private Point _location;
         private const int TAILLE_CASE = 35;
+
+        private List<StringInformations> _listSi;
         #endregion
 
         #region Proriétés
+        /// <summary>
+        /// Obtient ou définit la list des stringInformations
+        /// </summary>
+        public List<StringInformations> ListSi
+        {
+            get { return _listSi; }
+            set { _listSi = value; }
+        }
+
         /// <summary>
         /// Largeur de la grille
         /// </summary>
@@ -96,6 +108,7 @@ namespace WF_BatailleNavalle
             this.NbCaseHauteur = 10;
             this.Location = new Point(0, 0);
             this.ListCases = new List<Case>();
+            this.ListSi = new List<StringInformations>();
         }
 
         /// <summary>
@@ -109,10 +122,27 @@ namespace WF_BatailleNavalle
             this.Location = new Point(posX, posY);
             this.InitialisationGrille();
             this.InitialisationTaille();
+            this.InitialisationStrinInformations();
         }
         #endregion
 
         #region Methodes
+
+        /// <summary>
+        /// Initialise les informations de grille (ABCDE...123456...)
+        /// </summary>
+        private void InitialisationStrinInformations()
+        {
+            for (int i = 0; i < this.NbCaseHauteur; ++i)
+            {
+                this.ListSi.Add(new StringInformations(i.ToString(), this.Location.X - 12, (this.Location.Y + i * TAILLE_CASE) + (16 / 2)));
+            }
+
+            for (int i = 0; i < this.NbCaseLargeur; ++i)
+            {
+                this.ListSi.Add(new StringInformations(((char)(i + 65)).ToString(), (this.Location.X + i * TAILLE_CASE) + (12/2), this.Location.Y - 16));
+            }
+        }
         /// <summary>
         /// Calcul la taille en pixel par rapport au nombre de carré et à leur taille
         /// </summary>
@@ -141,17 +171,15 @@ namespace WF_BatailleNavalle
         /// <param name="pe">Element graphics</param>
         public void Dessine(PaintEventArgs pe)
         {
-            Pen pen = new Pen(Color.Black);
-            SolidBrush brush = new SolidBrush(Color.White);
-
             foreach (Case rec in this.ListCases)
-            {
                 rec.Dessine(pe);
-            }
+
+            foreach (StringInformations si in this.ListSi)
+                si.Dessine(pe);
         }
 
         /// <summary>
-        /// Verifie si la souris est sur un carré
+        /// Verifie si la souris est sur uns case
         /// </summary>
         /// <param name="x">Position x de la souris</param>
         /// <param name="y">Position y de la souris</param>
